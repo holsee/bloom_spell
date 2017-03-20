@@ -5,3 +5,4 @@ authors = ["holsee <sholdsworth@gmail.com>"]
 
 [dependencies]
 bitvec-rs = "0.1.0"
+fnv = "1.0.3"

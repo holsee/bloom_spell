@@ -3,6 +3,7 @@ name = "bloom_spell"
 version = "0.1.0"
 dependencies = [
  "bitvec-rs 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "fnv 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -10,5 +11,11 @@ name = "bitvec-rs"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
+[[package]]
+name = "fnv"
+version = "1.0.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
 [metadata]
 "checksum bitvec-rs 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "d359a1fff588424ad221fa6e3c233e47b3d82bc74a81093d427fa53450f5907e"
+"checksum fnv 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)" = "6cc484842f1e2884faf56f529f960cc12ad8c71ce96cc7abba0a067c98fee344"
