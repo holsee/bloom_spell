@@ -9,9 +9,9 @@ fn main() {
         bf
     };
 
-    let wow = &bf.maybe_contains("wow");
+    let wow = bf.maybe_contains("wow");
     println!("wow = {:#?}", wow);
 
-    let foo = &bf.maybe_contains("foo");
+    let foo = bf.maybe_contains("foo");
     println!("foo = {:#?}", foo);
 }

@@ -39,26 +39,34 @@ impl BloomFilter {
 
     pub fn maybe_contains<T: Hash>(&self, item: T) -> bool {
         let indices = self.compute_indices(item);
-        indices.into_iter().all(|i| self.bits.get(i as usize).unwrap() )
+        indices.into_iter().all(|i| self.bits[i] )
     }
 
-    pub fn compute_indices<T: Hash>(&self, item: T) -> Vec<f64> {
+    pub fn compute_indices<T: Hash>(&self, item: T) -> Vec<usize> {
         // Hash value with 2 hash functions
         let mut fnv = FnvHasher::default();
         item.hash(&mut fnv);
-        let hash_a: f64 = fnv.finish() as f64;
 
+        // SipHash https://131002.net/siphash/
         let mut sip = DefaultHasher::default();
         item.hash(&mut sip);
-        let hash_b: f64 = sip.finish() as f64;
 
         // Produce multiple hashes and convert to indices
-        let size = self.bits.len() as f64;
-        let hash_range = 0..self.hash_count;
+        let hash_a: f64 = fnv.finish() as f64;
+        let hash_b: f64 = sip.finish() as f64;
+        let size:   f64 = self.bits.len() as f64;
+        let hash_range  = 0..self.hash_count;
 
-        hash_range.into_iter()
-            .map(|i| (hash_a + (i as f64) * hash_b) % size )
-            .collect()
+        let indices: Vec<usize> = hash_range.into_iter()
+                                            .map(|i| {
+                                                // Compute i'th hash
+                                                let hash: f64 = hash_a + (i as f64) * hash_b;
+                                                // Convert to Index
+                                                let index: f64 = hash % size;
+                                                index as usize
+                                            })
+                                            .collect();
+        indices
     }
 }
 
